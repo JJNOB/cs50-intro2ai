@@ -4,13 +4,13 @@ import sys
 from util import Node, StackFrontier, QueueFrontier
 
 # Maps names to a set of corresponding person_ids
-names:dict = {}
+names: dict = {}
 
 # Maps person_ids to a dictionary of: name, birth, movies (a set of movie_ids)
-people:dict = {}
+people: dict = {}
 
 # Maps movie_ids to a dictionary of: title, year, stars (a set of person_ids)
-movies:dict = {}
+movies: dict = {}
 
 
 def load_data(directory):
@@ -134,6 +134,7 @@ def shortest_path(source, target):
 
         # Remove the last node from the frontier
         node = frontier.remove()
+
 
 def person_id_for_name(name):
     """
