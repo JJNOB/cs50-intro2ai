@@ -91,14 +91,49 @@ def shortest_path(source, target):
 
     If no possible path, returns None.
     """
+    # Get the initial nodes for the source person
+    initial_nodes = []
+    initial_movie_ids = people[source]["movies"]
+    for initial_movie_id in initial_movie_ids:
+        initial_nodes.append((initial_movie_id, source))
+    
+    # Add initial nodes to the frontier
+    frontier = StackFrontier()
+    for initial_node in initial_nodes:
+        new_node = Node(state=initial_node, parent=None, action=None)
+        frontier.add(new_node)
 
-    # TODO
-    # First find id of source
-    # Then query the id of the movie
-    # append to a list all the actors other than the source
-    # take the last one 
-    raise NotImplementedError
+    # Start with the first node in the frontier
+    if frontier.empty():
+        return None
+    node = frontier.remove()
+    explored = set()
+    while True:
+        # If the frontier is empty, no path exists
+        if frontier.empty():
+            return None
 
+        # Check if the current node's state is the target
+        if node.state[1] == target:
+            path = []
+            while node.parent is not None:
+                path.append(node.state)
+                node = node.parent
+            path.reverse()
+            return path
+
+        # Mark the current node as explored
+        explored.add(node.state)
+
+        # Expand the current node's neighbors
+        for movie_id, person_id in neighbors_for_person(node.state[1]):
+            neighbor_state = (movie_id, person_id)
+            if not frontier.contains_state(neighbor_state) and neighbor_state not in explored:
+                new_node = Node(state=neighbor_state, parent=node, action=None)
+                frontier.add(new_node)
+
+        # Remove the last node from the frontier
+        node = frontier.remove()
 
 def person_id_for_name(name):
     """
