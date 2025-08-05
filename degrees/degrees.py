@@ -4,13 +4,13 @@ import sys
 from util import Node, StackFrontier, QueueFrontier
 
 # Maps names to a set of corresponding person_ids
-names = {}
+names:dict = {}
 
 # Maps person_ids to a dictionary of: name, birth, movies (a set of movie_ids)
-people = {}
+people:dict = {}
 
 # Maps movie_ids to a dictionary of: title, year, stars (a set of person_ids)
-movies = {}
+movies:dict = {}
 
 
 def load_data(directory):
@@ -93,6 +93,10 @@ def shortest_path(source, target):
     """
 
     # TODO
+    # First find id of source
+    # Then query the id of the movie
+    # append to a list all the actors other than the source
+    # take the last one 
     raise NotImplementedError
 
 
