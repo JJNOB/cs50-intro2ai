@@ -49,6 +49,8 @@ def result(board, action):
     Returns the board that results from making move (i, j) on the board.
     """
     i, j = action
+    if not (0 <= i < 3 and 0 <= j < 3):
+        raise ValueError("Invalid action: Indices out of bounds.")
     if board[i][j] is not EMPTY:
         raise ValueError("Invalid action: Cell is not empty.")
     new_board = [row.copy() for row in board]
@@ -101,7 +103,7 @@ def minimax(board):
     Returns the optimal action for the current player on the board.
     """
     if terminal(board):
-        return None
+        return utility(board)  # Return score, not None
 
     current_player = player(board)
     best_action = None
@@ -113,6 +115,7 @@ def minimax(board):
             if value > best_value:
                 best_value = value
                 best_action = action
+        return best_action if best_action is not None else best_value
     else:
         best_value = math.inf
         for action in actions(board):
@@ -120,5 +123,4 @@ def minimax(board):
             if value < best_value:
                 best_value = value
                 best_action = action
-
-    return best_action
+        return best_action if best_action is not None else best_value
