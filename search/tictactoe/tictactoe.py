@@ -84,7 +84,6 @@ def terminal(board):
     return winner(board) is not None or all(cell is not EMPTY for row in board for cell in row)
 
 
-
 def utility(board):
     """
     Returns 1 if X has won the game, -1 if O has won, 0 otherwise.
